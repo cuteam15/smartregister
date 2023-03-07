@@ -19,7 +19,7 @@ def update_balance(rfid, amount):
 
 
 def main():
-    rfid = '1111000011'
+    rfid = '1002000100'
     display_accounts()
     update_balance(rfid, 200000)
     display_accounts()
