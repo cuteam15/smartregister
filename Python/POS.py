@@ -14,6 +14,11 @@ import time
 import tkinter as tk
 import tkinter.font as tkFont
 
+#Piezo buzzer set up 
+GPIO.setmode(GPIO.BCM) 
+buzzer = 23
+GPIO.setup(buzzer,GPIO.OUT)
+
  
 
 class App:
@@ -115,17 +120,40 @@ xiguadata = ["xigua",5]
 bananadata = ["banana",3]
 receipt = [bananadata,bananadata,bananadata]
 
+cart = []
+
+#Function to add an item to the cart
+def add_item(item_name, item_price, item_id):
+    item = {"name": item_name, "price": item_price, "id":item_id}
+    cart.append(item)
+    
+#Fucntion to print out the shopping cart
+def print_cart():
+    print("Shopping Cart:")
+    for item in cart:
+        print("- ", item["name"], ": $", item["price"])
+
+#Function to calculate price in total
+def calculate_total():
+    total = 0
+    for item in cart:
+        total += ["price"]
+    return total
+
 
 try:
     while tru:
+        
         id = 0
         id,text = reader.read() #Pulls from the Write2.py file 
         print(text) #Write in the name given to items
         #print(id) #Write in the UID
+        GPIO.output(buzzer,GPIO.HIGH) #Piezo Buzzer to turn sound each time a RFID is scanned 
         time.sleep(2) # Delay the time between each scan
         
         #Add to the receipt
         if(id == 483755500000): #BANANA
+            add_item("banana", 3, 483755500000)
             total = total + 3
             receipt[count] = bananadata
             count = count + 1
@@ -135,7 +163,9 @@ try:
             subtitle8 = sheet.cell(i,2,id)
             subtitle9 = sheet.cell(i,2,id)
             i = i+1
+        
         if(id == 483990839803): #XIGUA
+            add_item("xigua", 5, 483990839803)
             total = total + 5
             receipt[count] = xiguadata
             count = count + 1
@@ -145,6 +175,8 @@ try:
             subtitle8 = sheet.cell(i,2,id)
             subtitle9 = sheet.cell(i,2,id)
             i = i+1
+        
+        print_cart()  
         
         #After 3 added items, go ahead and print receipt.
         if(count == 3):
