@@ -1,0 +1,54 @@
+BoxLayout:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+        title: "Clemson POS System"
+        md_bg_color: .2,.2,.2,1
+        specific_text_color: 1,1,1,1
+
+    MDBottomNavigation:
+        #color stuff
+        #panel_color: 0,0,1,1
+
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: "Home"
+            icon: 'home'
+        
+    
+        
+                
+
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: "Items"
+            icon: 'menu'
+
+            MDLabel:
+                text: "Items"
+                halign: 'center'
+            
+            Button:
+                text: 'Complete Transaction'
+                on_press: print("Place Card")
+                on_release: print("Processing Transaction")
+                on_state: print("my current state is {}".format(self.state))
+                
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: "Coupons"
+            icon: 'tag'
+
+            MDLabel:
+                text: "Coupons"
+                halign: 'center'
+
+        MDBottomNavigationItem:
+            name: 'screen 4'
+            text: "Accounts"
+            icon: 'account-box'
+
+            MDLabel:
+                text: "Accounts"
+                halign: 'center'
+
